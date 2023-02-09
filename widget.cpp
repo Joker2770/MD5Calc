@@ -13,6 +13,7 @@ Widget::Widget(QWidget *parent, QsciScintilla* pEdit)
     this->m_lb_result = new QLabel();
     this->m_lb_description = new QLabel();
 
+    this->resize(450, 300);
     this->m_pEdit = pEdit;
 
     this->m_hbl->addWidget(this->m_btn_calc);
