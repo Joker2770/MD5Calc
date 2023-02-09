@@ -89,14 +89,9 @@ void Widget::OnCalcMD5()
         return;
     }
 
-    QString md5hash;
-    QByteArray ba,bb;
-    QCryptographicHash md(QCryptographicHash::Md5);
-    ba.append(data);
-    md.addData(ba);
-    bb = md.result();
-    md5hash.append(bb.toHex());
+    QByteArray md5 = QCryptographicHash::hash(data.toUtf8(), QCryptographicHash::Md5);
+    QString strMD5 = md5.toHex();
 
-    this->m_lb_result->setText(md5hash);
+    this->m_lb_result->setText(strMD5);
 }
 
