@@ -57,9 +57,9 @@ bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData)
         return false;
     }
     pProcData->m_strPlugName = QObject::tr("MD5Calc");
-    pProcData->m_strComment = QObject::tr("MD5 Calculation.");
+    pProcData->m_strComment = QObject::tr("MD5 Calculation. <https://github.com/Joker2770/MD5Calc.git>");
 
-    pProcData->m_version = QString("v1.0");
+    pProcData->m_version = QString("v0.0.1");
     pProcData->m_auther = QString("Jintao Yang");
     return true;
 }
@@ -68,9 +68,8 @@ int NDD_PROC_MAIN(QWidget* pNotepad, const QString &strFileName, std::function<Q
 {
     QsciScintilla* pEdit = getCurEdit();
 
-    //做一个简单的转大写的操作
     Widget* p = new Widget(pNotepad,pEdit);
-    //主窗口关闭时，子窗口也关闭。避免空指针操作
+
     p->setWindowFlag(Qt::Window);
     p->show();
 

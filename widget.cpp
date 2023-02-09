@@ -83,7 +83,7 @@ Widget::~Widget()
 
 void Widget::OnCalcMD5()
 {
-    QString data=m_pEdit->selectedText();
+    QString data = this->m_pEdit->selectedText();
     if (data.isEmpty())
     {
         return;
