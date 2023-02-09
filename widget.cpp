@@ -35,6 +35,10 @@ Widget::Widget(QWidget *parent, QsciScintilla* pEdit)
     this->resize(450, 300);
     this->m_pEdit = pEdit;
 
+    this->m_gb_result->setTitle("Result");
+    this->m_btn_calc->setText("Calculate");
+    this->m_btn_cancel->setText("Cancel");
+    this->m_lb_description->setText("Calculate MD5 for selected text");
     this->m_hbl->addWidget(this->m_btn_calc);
     this->m_hbl->addWidget(this->m_btn_cancel);
     this->m_gl_result->addWidget(this->m_lb_result);
