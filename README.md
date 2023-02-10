@@ -6,4 +6,4 @@ A plugin for Notepad-- to calculate MD5.
 
 ## Preview
 
-[preview](https://gitee.com/Joker2770/MD5Calc/blob/main/preview.png)
+![preview](preview.png)
