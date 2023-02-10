@@ -17,9 +17,9 @@ file(GLOB MOC_HEADER ${PROJECT_SOURCE_DIR}/src/Qsci/*.h)
 
 #message(${MOC_HEADER})
 
-add_library(${PROJECT_NAME} SHARED ${SRC} ${MOC_HEADER})
+add_library(${PROJECT_NAME} STATIC ${SRC} ${MOC_HEADER})
 
-add_definitions(-DQSCINTILLA_MAKE_DLL)
+# add_definitions(-DQSCINTILLA_MAKE_DLL)
 # add_library(${PROJECT_NAME} SHARED ${SRC} ${MOC_HEADER})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE SCINTILLA_QT SCI_LEXER INCLUDE_DEPRECATED_FEATURES)
