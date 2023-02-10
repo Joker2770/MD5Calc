@@ -22,6 +22,8 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QDir>
+#include <QApplication>
 #include <functional>
 #include <qsciscintilla.h>
 #include <pluginGl.h>
@@ -58,7 +60,10 @@ bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData)
     }
     pProcData->m_strPlugName = QObject::tr("MD5Calc");
     pProcData->m_strComment = QObject::tr("MD5 Calculation. <https://github.com/Joker2770/MD5Calc.git>");
-
+#if defined(Q_OS_WIN)
+    pProcData->m_strFilePath = QObject::tr((QDir::currentPath().toStdString() + "./plugin/" + "MD5Calc.dll").c_str());
+#else
+#endif
     pProcData->m_version = QString("v0.0.1");
     pProcData->m_auther = QString("Jintao Yang");
     return true;
