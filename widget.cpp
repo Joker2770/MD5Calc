@@ -25,12 +25,14 @@
 Widget::Widget(QWidget *parent, QsciScintilla* pEdit)
     : QWidget(parent)
 {
-    this->m_gl = new QGridLayout(this);
+    this->m_gl = new QGridLayout();
     this->m_gl_result = new QGridLayout();
     this->m_gb_result = new QGroupBox();
     this->m_hbl = new QHBoxLayout();
     this->m_lb_result = new QLabel();
     this->m_lb_description = new QLabel();
+    this->m_btn_calc = new QPushButton();
+    this->m_btn_cancel = new QPushButton();
 
     this->resize(450, 300);
     this->m_pEdit = pEdit;
@@ -39,15 +41,18 @@ Widget::Widget(QWidget *parent, QsciScintilla* pEdit)
     this->m_btn_calc->setText("Calculate");
     this->m_btn_cancel->setText("Cancel");
     this->m_lb_description->setText("Calculate MD5 for selected text");
+    this->m_lb_result->setText("null");
+    this->m_lb_result->setTextInteractionFlags(Qt::TextSelectableByMouse);
     this->m_hbl->addWidget(this->m_btn_calc);
     this->m_hbl->addWidget(this->m_btn_cancel);
     this->m_gl_result->addWidget(this->m_lb_result);
     this->m_gb_result->setLayout(this->m_gl_result);
     this->m_gl->addWidget(this->m_lb_description, 0, 0);
-    this->m_gl->addWidget(this->m_gb_result, 0, 1);
-    this->m_gl->addLayout(this->m_hbl, 0, 2);
+    this->m_gl->addWidget(this->m_gb_result, 1, 0);
+    this->m_gl->addLayout(this->m_hbl, 2, 0);
+    this->setLayout(this->m_gl);
 
-    connect(this->m_btn_calc, SIGNAL(clicked()), this, SLOT(this->OnCalcMD5()));
+    connect(this->m_btn_calc, SIGNAL(clicked()), this, SLOT(OnCalcMD5()));
     connect(this->m_btn_cancel, SIGNAL(clicked()), this, SLOT(close()));
 }
 
@@ -82,6 +87,16 @@ Widget::~Widget()
     {
         delete this->m_gl;
         this->m_gl = nullptr;
+    }
+    if (nullptr != this->m_btn_calc)
+    {
+        delete this->m_btn_calc;
+        this->m_btn_calc = nullptr;
+    }
+    if (nullptr != this->m_btn_cancel)
+    {
+        delete this->m_btn_cancel;
+        this->m_btn_cancel = nullptr;
     }
 }
 
