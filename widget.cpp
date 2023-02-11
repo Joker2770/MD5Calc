@@ -34,13 +34,17 @@ Widget::Widget(QWidget *parent, QsciScintilla* pEdit)
     this->m_btn_calc = new QPushButton();
     this->m_btn_cancel = new QPushButton();
 
-    this->resize(450, 300);
+    this->resize(400, 250);
     this->m_pEdit = pEdit;
 
     this->m_gb_result->setTitle("Result");
     this->m_btn_calc->setText("Calculate");
     this->m_btn_cancel->setText("Cancel");
-    this->m_lb_description->setText("Calculate MD5 for selected text");
+    this->m_lb_description->setText("Calculate MD5 for the selected text");
+    QFont ft;
+    ft.setPointSize(15);
+    ft.setBold(true);
+    this->m_lb_result->setFont(ft);
     this->m_lb_result->setText("null");
     this->m_lb_result->setTextInteractionFlags(Qt::TextSelectableByMouse);
     this->m_hbl->addWidget(this->m_btn_calc);
