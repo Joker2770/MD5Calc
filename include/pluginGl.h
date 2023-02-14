@@ -1,16 +1,28 @@
-ï»¿#pragma once
+#pragma once
 #include <QString>
 #include <QMenu>
 
+#define NDD_EXPORTDLL
+
+#if defined(Q_OS_WIN)
+	#if defined(NDD_EXPORTDLL)
+		#define NDD_EXPORT __declspec(dllexport)
+	#else
+		#define NDD_EXPORT __declspec(dllimport)
+	#endif
+#else
+	#define NDD_EXPORT __attribute__((visibility("default")))
+#endif
+
 struct ndd_proc_data
 {
-	QString m_strPlugName; //æ’ä»¶åç§° å¿…é€‰ã€‚æ’ä»¶é‡Œé¢éœ€å¡«å†™
-	QString m_strFilePath; //lib æ’ä»¶çš„å…¨å±€è·¯å¾„ã€‚å¿…é€‰ã€‚æ’ä»¶å†…éƒ¨ä¸ç”¨å¡«å†™,ä¸»ç¨‹åºä¼ é€’ä¸‹æ¥
-	QString m_strComment; //æ’ä»¶è¯´æ˜ï¼›æ’ä»¶é‡Œé¢éœ€å¡«å†™
-	QString m_version; //ç‰ˆæœ¬å·ç ã€‚å¯é€‰ï¼›æ’ä»¶é‡Œé¢éœ€å¡«å†™
-	QString m_auther;//ä½œè€…åç§°ã€‚å¯é€‰ï¼›æ’ä»¶é‡Œé¢éœ€å¡«å†™
-	int m_menuType;//èœå•ç±»å‹ã€‚0ï¼šä¸ä½¿ç”¨äºŒçº§èœå• 1ï¼šåˆ›å»ºäºŒçº§èœå•ï¼›æ’ä»¶é‡Œé¢éœ€å¡«å†™
-	QMenu* m_rootMenu;//å¦‚æœm_menuType = 1ï¼Œç»™å‡ºäºŒçº§æ ¹èœå•çš„åœ°å€ã€‚å…¶ä»–å€¼nullptr æ’ä»¶å†…éƒ¨ä¸ç”¨å¡«å†™ï¼Œä¸»ç¨‹åºä¼ é€’ä¸‹æ¥
+	QString m_strPlugName; //²å¼şÃû³Æ ±ØÑ¡
+	QString m_strFilePath; //lib ²å¼şµÄÈ«¾ÖÂ·¾¶¡£±ØÑ¡¡£²å¼şÄÚ²¿²»ÓÃ¹Ü,Ö÷³ÌĞò´«µİÏÂÀ´
+	QString m_strComment; //²å¼şËµÃ÷
+	QString m_version; //°æ±¾ºÅÂë¡£¿ÉÑ¡
+	QString m_auther;//×÷ÕßÃû³Æ¡£¿ÉÑ¡
+	int m_menuType;//²Ëµ¥ÀàĞÍ¡£0£º²»Ê¹ÓÃ¶ş¼¶²Ëµ¥ 1£º´´½¨¶ş¼¶²Ëµ¥
+	QMenu* m_rootMenu;//Èç¹ûm_menuType = 1£¬¸ø³ö¶ş¼¶¸ù²Ëµ¥µÄµØÖ·¡£ÆäËûÖµnullptr
 
 	ndd_proc_data(): m_rootMenu(nullptr), m_menuType(0)
 	{
@@ -18,7 +30,6 @@ struct ndd_proc_data
 	}
 };
 
-//#define NDD_PROC_IDENTIFY ("nddProc")
 
 typedef struct ndd_proc_data NDD_PROC_DATA;
 
