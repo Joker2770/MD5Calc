@@ -19,6 +19,7 @@
 
 #include "widget.h"
 
+#include <QObject>
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
