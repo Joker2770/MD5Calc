@@ -25,7 +25,6 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QGroupBox>
 
 class QsciScintilla;
 class Widget : public QWidget
@@ -41,9 +40,8 @@ private slots:
 
 private:
     QsciScintilla* m_pEdit;
-    QGridLayout *m_gl, *m_gl_result;
-    QHBoxLayout *m_hbl;
-    QGroupBox *m_gb_result;
+    QGridLayout *m_gl;
+    QHBoxLayout *m_hbl, *m_hbl_result;
     QLabel *m_lb_description, *m_lb_result;
     QPushButton *m_btn_calc, *m_btn_cancel;
 };
