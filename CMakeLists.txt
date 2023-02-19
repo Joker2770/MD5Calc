@@ -44,3 +44,7 @@ add_library(${PROJECT_NAME} SHARED
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt${QT_VERSION_MAJOR}::Widgets qscint)
 
+install(
+        TARGETS ${PROJECT_NAME}
+        DESTINATION "plugin"
+)
