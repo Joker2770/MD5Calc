@@ -5,7 +5,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Concurrent Network PrintSupport)
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets PrintSupport)
 
 aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC)
 aux_source_directory(${PROJECT_SOURCE_DIR}/scintilla/lexers SRC)

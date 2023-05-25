@@ -46,7 +46,7 @@
 #endif
 
     NDD_EXPORT bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData);
-    NDD_EXPORT int NDD_PROC_MAIN(QWidget* pNotepad, const QString& strFileName, std::function<QsciScintilla* ()>getCurEdit, NDD_PROC_DATA* procData);
+    NDD_EXPORT int NDD_PROC_MAIN(QWidget* pNotepad, const QString& strFileName, std::function<QsciScintilla* ()>getCurEdit, std::function<bool(int, void*)> pluginCallBack, NDD_PROC_DATA* procData);
 
 #ifdef __cplusplus
     }
@@ -65,7 +65,7 @@ bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData)
     pProcData->m_strPlugName = QObject::tr("MD5Calc");
     pProcData->m_strComment = QObject::tr("MD5 Calculation. <https://github.com/Joker2770/MD5Calc.git>");
 
-    pProcData->m_version = QString("v0.0.2");
+    pProcData->m_version = QString("v0.0.3");
     pProcData->m_auther = QString("Jintao Yang");
 
     pProcData->m_menuType = 0;
@@ -73,7 +73,7 @@ bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData)
     return true;
 }
 
-int NDD_PROC_MAIN(QWidget* pNotepad, const QString &strFileName, std::function<QsciScintilla*()>getCurEdit, NDD_PROC_DATA* pProcData)
+int NDD_PROC_MAIN(QWidget* pNotepad, const QString &strFileName, std::function<QsciScintilla*()>getCurEdit, std::function<bool(int, void*)> pluginCallBack, NDD_PROC_DATA* pProcData)
 {
     QsciScintilla* pEdit = getCurEdit();
     if (pEdit == nullptr)
