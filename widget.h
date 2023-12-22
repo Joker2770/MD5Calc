@@ -27,23 +27,27 @@
 #include <QPushButton>
 
 class QsciScintilla;
+
+extern std::function<QsciScintilla* (QWidget*)> s_getCurEdit;
+
 class Widget : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr, QsciScintilla* pEdit = nullptr);
+    Widget(QWidget *parent);
     ~Widget();
 
 private slots:
     void OnCalcMD5();
 
 private:
-    QsciScintilla* m_pEdit;
     QGridLayout *m_gl;
     QHBoxLayout *m_hbl, *m_hbl_result;
     QLabel *m_lb_description, *m_lb_result;
     QPushButton *m_btn_calc, *m_btn_cancel;
+
+	QWidget* m_pNotepad;
 };
 
 #endif // WIDGET_H

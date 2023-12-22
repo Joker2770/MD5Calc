@@ -22,7 +22,7 @@
 
 #include <QCryptographicHash>
 
-Widget::Widget(QWidget *parent, QsciScintilla* pEdit)
+Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
     this->m_gl = new QGridLayout();
@@ -34,7 +34,8 @@ Widget::Widget(QWidget *parent, QsciScintilla* pEdit)
     this->m_btn_cancel = new QPushButton();
 
     this->resize(400, 250);
-    this->m_pEdit = pEdit;
+
+	m_pNotepad = parent;
 
     this->m_gl->setSpacing(5);
     this->m_hbl->setSpacing(5);
@@ -104,7 +105,8 @@ Widget::~Widget()
 
 void Widget::OnCalcMD5()
 {
-    QString data = this->m_pEdit->selectedText();
+	QsciScintilla* pEdit = s_getCurEdit(m_pNotepad);
+    QString data = pEdit->selectedText();
     if (data.isEmpty())
     {
         return;

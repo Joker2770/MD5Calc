@@ -28,6 +28,7 @@
 #include <functional>
 #include <qsciscintilla.h>
 #include <pluginGl.h>
+#include "instanceobj.h"
 
 #define NDD_EXPORTDLL
 
@@ -46,7 +47,7 @@
 #endif
 
     NDD_EXPORT bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData);
-    NDD_EXPORT int NDD_PROC_MAIN(QWidget* pNotepad, const QString& strFileName, std::function<QsciScintilla* ()>getCurEdit, std::function<bool(int, void*)> pluginCallBack, NDD_PROC_DATA* procData);
+    NDD_EXPORT int NDD_PROC_MAIN(QWidget* pNotepad, const QString& strFileName, std::function<QsciScintilla* (QWidget*)>getCurEdit, std::function<bool(QWidget*, int, void*)> pluginCallBack, NDD_PROC_DATA* procData);
 
 #ifdef __cplusplus
     }
@@ -54,7 +55,8 @@
 
 static NDD_PROC_DATA s_procData;
 static QWidget* s_pMainNotepad = nullptr;
-std::function<QsciScintilla* ()> s_getCurEdit;
+std::function<QsciScintilla* (QWidget*)> s_getCurEdit;
+std::function<bool(QWidget*, int, void*)> s_invokeMainFun;
 
 bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData)
 {
@@ -73,26 +75,31 @@ bool NDD_PROC_IDENTIFY(NDD_PROC_DATA* pProcData)
     return true;
 }
 
-int NDD_PROC_MAIN(QWidget* pNotepad, const QString &strFileName, std::function<QsciScintilla*()>getCurEdit, std::function<bool(int, void*)> pluginCallBack, NDD_PROC_DATA* pProcData)
+int NDD_PROC_MAIN(QWidget* pNotepad, const QString &strFileName, std::function<QsciScintilla*(QWidget*)>getCurEdit, std::function<bool(QWidget*, int, void*)> pluginCallBack, NDD_PROC_DATA* pProcData)
 {
-    QsciScintilla* pEdit = getCurEdit();
-    if (pEdit == nullptr)
-    {
-        return -1;
-    }
+	InstanceObj* pInstanse = nullptr;
+
+	if (pProcData != nullptr)
+	{
+		pInstanse = new InstanceObj(pNotepad);
+		pInstanse->setObjectName("nddplg");
+	}
+	else
+	{
+		return -1;
+	}
+
+	s_getCurEdit = getCurEdit;
+	s_invokeMainFun = pluginCallBack;
 
     if (pProcData != nullptr)
     {
         s_procData = *pProcData;
     }
 
-    s_pMainNotepad = pNotepad;
-    s_getCurEdit = getCurEdit;
+	s_pMainNotepad = pNotepad;
 
-    Widget* p = new Widget(pNotepad,pEdit);
-
-    p->setWindowFlag(Qt::Window);
-    p->show();
+	QObject::connect(pProcData->m_pAction, &QAction::triggered, pInstanse, &InstanceObj::doMainWork, Qt::UniqueConnection);
 
     return 0;
 }

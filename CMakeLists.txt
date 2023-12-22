@@ -24,6 +24,8 @@ set(PROJECT_SOURCES
         MD5Calc_export.cpp
         widget.cpp
         widget.h
+        instanceobj.cpp
+                instanceobj.h
 )
 
 include_directories(
